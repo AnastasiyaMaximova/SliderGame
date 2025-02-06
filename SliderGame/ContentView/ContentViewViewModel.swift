@@ -11,19 +11,21 @@ import Observation
 @Observable final class ContentViewViewModel {
     
     var targetValue = Int.random(in: 1...100)
-    var currentValue = 50.0
+    var currentValue = 55.0
+    var isPresented = false
+    var score: Int {
+        100 - abs(targetValue - lround(currentValue))
+    }
     var alphaOfThumb: CGFloat {
-        CGFloat(computerScore())
+        CGFloat(score)/100
     }
     
     func updateTargetValue(){
         targetValue = Int.random(in: 1...100)
     }
     
-    private func computerScore() -> Int {
-        let difference = abs(targetValue - lround(currentValue))
-        return 100 - difference
+    func buttonAction() {
+        isPresented.toggle()
     }
-    
 }
 

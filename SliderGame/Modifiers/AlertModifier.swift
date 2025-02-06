@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct AlertModifier: ViewModifier {
-    @Binding var value: Int
+    var score: Int
     @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
         content
             .alert("Your Score", isPresented: $isPresented) {
-                Button("OK") {}
+                Button("OK") {
+                    isPresented.toggle()
+                }
             } message: {
-                Text(value.formatted())
+                Text(score.formatted())
             }
     }
-       
 }
 
 extension View {
-    func alertAppearance (value: Int, isPresented: Bool) -> some View {
-        ModifiedContent(content: self, modifier: AlertModifier(value: .constant(200), isPresented: .constant(true)))
+    func alertAppearance (score: Int, isPresented: Binding<Bool>) -> some View {
+        ModifiedContent(content: self, modifier: AlertModifier(score: score, isPresented: isPresented))
     }
 }

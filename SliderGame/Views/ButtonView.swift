@@ -10,20 +10,20 @@ import SwiftUI
 struct ButtonView: View {
     let title: String
     let action: () -> Void
-    let score = 1
-    let isPresented = true
+    var score: Int
+    @Binding var isPresented: Bool
+    
     var body: some View {
         Button(action: action){
             Text(title)
                 .font(.system(size: 22))
-                .alertAppearance(value: score, isPresented: isPresented)
+                .alertAppearance(score: score, isPresented: $isPresented)
         }
-        
     }
 }
 
 struct ActionButtonView_Previews: PreviewProvider {
     static var previews: some View{
-        ButtonView(title: "Title", action: {})
+        ButtonView(title: "Title", action: {}, score: 100, isPresented: .constant(true))
     }
 }
